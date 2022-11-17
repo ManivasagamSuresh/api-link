@@ -8,6 +8,8 @@ app.use(express.json());
 const mongoclient =new mongodb.MongoClient(URL)
 // const cors = require('cors')
 
+app.use(express.json());
+
 
 app.get("/mentor",async(req,res)=>{
     try {
