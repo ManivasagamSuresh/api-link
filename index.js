@@ -2,6 +2,7 @@ const express = require("express");
 const mongodb = require('mongodb');
 // const { MongoClient } = require("mongodb/mongodb");
 const URL = "mongodb+srv://manivasagam:atshu.mani@cluster0.cn1yn6v.mongodb.net/?retryWrites=true&w=majority"
+// const URL = "mongodb://localhost:27017"
 const { ppid } = require("process");
 const app = express();
 app.use(express.json());
@@ -14,7 +15,7 @@ app.use(express.json());
 app.get("/mentor",async(req,res)=>{
     try {
         let connection  =await mongoclient.connect();
-        let db = connection.db("api link");
+        let db = connection.db("apilink");
         let data =await db.collection("mentor").find({}).toArray();
         await connection.close();
         res.json(data);
@@ -28,12 +29,13 @@ app.get("/mentor",async(req,res)=>{
 app.post("/createMentor",async(req,res)=>{
     try {
         let connection  =await mongoclient.connect();
-        let db = connection.db("api link");
+        let db = connection.db("apilink");
         let data =await db.collection("mentor").insertOne(req.body);
         await connection.close();
         res.json({message : "created"})
     }
     catch(err){
+        console.log(err)
         res.json({message:"error"})
     }
 })
